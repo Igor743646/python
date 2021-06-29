@@ -1,0 +1,242 @@
+В прямоугольной системе координат $Oxyz$ поверхность второго порядка задана уравнением:
+
+\begin{center}
+$-2y^2 + 4yz - 3z^2 + 4y + 4z - 12 = 0$
+\end{center}
+
+\begin{sagesilent}
+var("x y z")
+f = -2*y^2 + 4*y*z - 3*z^2 + 4*y + 4*z - 12
+\end{sagesilent}
+
+\begin{center}
+  \sageplot[width = 13cm][png]{implicit_plot3d(f, (x, 0, 8), (y, 0, 8), (z, 0, 8))}
+\end{center}
+
+Применяем алгоритм составления канонического уравнения поверхности второго порядка к каноническому виду.
+Определяем коэффициенты: 
+$a_{11} = 0, a_{12} = 0, a_{13} = 0, 
+a_{22} = -2, a_{23} = 2, a_{33} = -3, 
+a_1 = 0, a_2 = 2, a_3 = 2, 
+a_0 = -12$.\\
+
+
+1. Вычисляем инварианты:
+\begin{center}
+	$\uptau_1 = 0 - 2 - 3 = -5$,
+	$\uptau_2 = \begin{vmatrix}
+		  0 & 0\\
+		  0 & -2
+		\end{vmatrix} + \begin{vmatrix}
+		  0 & 0\\
+		  0 & -3
+		\end{vmatrix} + \begin{vmatrix}
+		  -2 & 2\\
+		  2 & -3
+		\end{vmatrix} = 2$. \\
+
+
+	$\updelta = \begin{vmatrix}
+		  0 & 0 & 0\\
+		  0 & -2 & 2\\
+		  0 & 2 & -3
+		\end{vmatrix} = 0$,
+	$\Updelta = \begin{vmatrix}
+		  0 & 0 & 0 & 0\\
+		  0 & -2 & 2 & 2\\
+		  0 & 2 & -3 & 2\\
+		  0 & 2 & 2 & -12\\
+		\end{vmatrix} = 0$. \\
+
+
+	$\upkappa_2 = \begin{vmatrix}
+		  0 & 0 & 0\\
+		  0 & -2 & 2\\
+		  0 & 2 & -12
+		\end{vmatrix} + \begin{vmatrix}
+		  0 & 0 & 0\\
+		  0 & -3 & 2\\
+		  0 & 2 & -12
+		\end{vmatrix} + \begin{vmatrix}
+		  -2 & 2 & 2\\
+		  2 & -3 & 2\\
+		  2 & 2 & -12
+		\end{vmatrix} = 12$. \\
+\end{center}
+
+2. Так как $\updelta = \Updelta = 0, \uptau_2 > 0,  \uptau_1\upkappa_2 < 0$, то
+определяем, что данное уравнение задает эллиптический цилиндр
+
+3. Составляем матрицу квадратичной формы и столбец коэффициентов линейной формы:
+
+\begin{center}
+	$ A = 
+	\begin{pmatrix}
+	  0 & 0 & 0\\
+	  0 & -2 & 2\\
+	  0 & 2 & -3
+	\end{pmatrix}
+	, a = 
+	\begin{pmatrix}
+	  0 \\
+	  2 \\
+	  2 
+	\end{pmatrix}
+	, a_0 = -12$
+\end{center}
+
+4. Составляем характеристическое уравнение:
+
+\begin{center}
+	\begin{equation*}
+	det(A) = 
+	\begin{vmatrix}
+	  0-\lambda & 0 & 0\\
+	  0 & -2-\lambda & 2\\
+	  0 & 2 & -3-\lambda
+	\end{vmatrix} = 0
+	\end{equation*}
+\end{center}
+
+Получается: $\lambda(\lambda^{2}+5\lambda+2) = 0$
+
+Корни:
+\begin{center}
+	$\lambda_{1} = \frac{\sqrt{17} - 5}{2}$\\
+	$\lambda_{2} = -\frac{\sqrt{17} + 5}{2}$\\
+	$\lambda_{3} = 0$
+\end{center}
+
+5. Вычислим коэффициенты канонического уравнения эллиптического цилиндра:
+
+\begin{center}
+	$a^{2} = -\frac{12}{2\frac{\sqrt{17} - 5}{2}}$, 
+	$b^{2} = -\frac{12}{-2\frac{\sqrt{17} + 5}{2}}$
+\end{center}
+
+Таким образом, каноническое уравнение заданной поверхности имеет вид:
+
+\begin{center}
+	$\frac{(x')^{2}}{ \sqrt{\frac{3(5+\sqrt{17})}{2}}^{2} } +
+	 \frac{(y')^{2}}{ \sqrt{\frac{3(5-\sqrt{17})}{2}}^{2} } = 1$
+\end{center}
+
+6. Найдем собственные векторы:
+
+Для $\lambda_1 = \frac{\sqrt{17} - 5}{2}$: $l_1 = \begin{pmatrix}
+	  0 \\
+	  1+\sqrt{17} \\
+	  4 
+	\end{pmatrix}$
+
+Для $\lambda_2 = -\frac{\sqrt{17} + 5}{2}$: $l_1 = \begin{pmatrix}
+	  0 \\
+	  1-\sqrt{17} \\
+	  4 
+	\end{pmatrix}$
+
+Для $\lambda_3 = 0$: $l_1 = \begin{pmatrix}
+	  1 \\
+	  0 \\
+	  0 
+	\end{pmatrix}$
+
+По собственным векторам определим канонический базис:
+
+$s_1 = \begin{pmatrix}
+	  0 \\
+	  \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}} \\
+	  \sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}}
+	\end{pmatrix}$
+
+$s_2 = \begin{pmatrix}
+	  0 \\
+	  -\sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}} \\
+	  \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}}
+	\end{pmatrix}$
+
+$s_3 = \begin{pmatrix}
+	  1 \\
+	  0 \\
+	  0
+	\end{pmatrix}$
+
+Составляем матрицу S , записывая по столбцам координаты этих векторов:
+
+\begin{center}
+	\begin{equation*}
+	S = 
+	\begin{pmatrix}
+	  0 & 0 & 1\\
+	  \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}} & -\sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}} & 0\\
+	  \sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}} & \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}} & 0
+	\end{pmatrix}
+	\end{equation*}
+\end{center}
+
+7. Находим координаты $x_0, y_0, z_0$ начала канонической
+системы координат. Для эллиптического цилиндра:
+
+\begin{equation*}
+ \begin{cases}
+   0x_0 + 0y_0 + 0z_0 = 0, 
+   \\
+   0x_0 - 2y_0 + 2z_0 = -2, 
+   \\
+   0x_0 + 2y_0 - 3z_0 = -2, 
+ \end{cases}
+\end{equation*}
+
+Получаем одно из решений $x_0 = 0, y_0 = 5, z_0 = 4$.
+
+Запишем формулы для матрицы $S$ и координатного столбца
+$s = (0, 5, 4)^{T}$:
+
+\begin{center}
+	\begin{equation*}
+	\begin{pmatrix}
+	  x \\
+	  y \\
+	  z
+	\end{pmatrix} = s + S
+	\begin{pmatrix}
+	  x' \\
+	  y' \\
+	  z'
+	\end{pmatrix} = 
+	\begin{pmatrix}
+	  0 \\
+	  5 \\
+	  4
+	\end{pmatrix} + 
+	\begin{pmatrix}
+	  0 & 0 & 1\\
+	  \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}} & -\sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}} & 0\\
+	  \sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}} & \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}} & 0
+	\end{pmatrix}
+	\begin{pmatrix}
+	  x' \\
+	  y' \\
+	  z'
+	\end{pmatrix}
+	\end{equation*}
+\end{center}
+
+\begin{equation*}
+ \begin{cases}
+   x = z',
+   \\
+   y = \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}}x' - \sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}}y' + 5,
+   \\
+   z = \sqrt{\frac{1}{2}-\frac{\sqrt{17}}{34}}x' + \sqrt{\frac{1}{2}+\frac{\sqrt{17}}{34}}y' + 4
+ \end{cases}
+\end{equation*}
+
+\begin{sagesilent}
+g1 = sqrt(1/2 + sqrt(17)/34)*x - (sqrt(1/2 - sqrt(17)/34))*y + 5
+g2 = sqrt(1/2 - sqrt(17)/34)*x + (sqrt(1/2 + sqrt(17)/34))*y + 4
+\end{sagesilent}
+
+\begin{center}
+  \sageplot[width=.75\textwidth]{implicit_plot3d(f.subs({y: g1, z: g2}), (x, -5, 5), (y, -5, 5), (z, 0, 11))}
+\end{center}

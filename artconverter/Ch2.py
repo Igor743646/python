@@ -5,7 +5,7 @@ import cv2
 
 class ArtConverter:
 
-    def __init__(self, path = '12.jpg', pixel_size = 12, color_lvl = 8):
+    def __init__(self, path = 'dddd.jpg', pixel_size = 4, color_lvl = 4):
         pg.init()
         self.path = path
         self.PIXEL_SIZE = pixel_size
